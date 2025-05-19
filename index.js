@@ -24,11 +24,14 @@ app.post('/chat', async (req, res) => {
     });
     const reply = completion.choices[0].message.content;
     res.json({ reply });
-  } catch (err) {
-    console.error('Error OpenAI:', err);
-    res.status(500).json({ error: 'Fallo al llamar a OpenAI' });
+  }   } catch (err) {
+    console.error('Error OpenAI completo:', err);
+    res.status(500).json({
+      error:   'Fallo al llamar a OpenAI',
+      details: err.message
+    });
   }
-});
+
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
